@@ -1,4 +1,21 @@
-function Input({ type, placeholder, label }: { type: string; placeholder: string; label?: string }) {
+"ues client"
+
+import { LogInData, SetState } from "@/app/auth/page"
+interface Input {
+    type: string
+    id: string
+    placeholder?: string
+    label?: string
+    setValue: SetState<LogInData>
+    value: string
+}
+function Input({ type, id, placeholder, label, setValue, value }: Input) {
+    function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
+        setValue((prev) => ({
+            ...prev,
+            [e.target.id]: e.target.value
+        }))
+    }
     return (
         <div className={` text-xl ${label ? "justify-between " : "justify-center "}flex flex-col sm:flex-row gap-1 p-3 items-center`}>
             {label && (
@@ -7,7 +24,10 @@ function Input({ type, placeholder, label }: { type: string; placeholder: string
                 </label>
             )}
             <input
+                onChange={handleChange}
                 type={type}
+                id={id}
+                value={value}
                 placeholder={placeholder}
                 className=" bg-font/10 hover:bg-accent/8 focus:outline-3 transition duration-100 outline-font-active backdrop-blur-3xl rounded-xl p-3"
             />

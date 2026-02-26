@@ -3,7 +3,13 @@ import { motion } from "framer-motion"
 
 import { appearance, slideUp } from "../lib/animations"
 import LoginForm from "../components/forms/LoginForm"
+import { useState } from "react"
 
+export interface LogInData {
+    email: string
+    password: string
+}
+export type SetState<T> = React.Dispatch<React.SetStateAction<T>>
 export default function Page() {
     return (
         <>
