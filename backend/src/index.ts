@@ -1,4 +1,5 @@
-import express, { Application, Request, Response } from "express"
+import express from "express"
+import type { Application, Request, Response } from "express"
 import cors from "cors"
 import { createServer, Server as HTTPServer } from "http"
 import { Server } from "socket.io"
@@ -11,7 +12,13 @@ const io: Server = new Server(server, {
         methods: ["GET", "POST"]
     }
 })
+io.on("connection", (socket) => {
+    console.log(`Client connected: ${socket.id}`)
+})
+// app.get((req, res) => {
+//     res.send("<p>dsflsdkfjsdlfkj</p>")
+// })
 
-server.listen(5000, () => {
+server.listen(5000, "localhost", () => {
     console.log("Server is working.")
 })

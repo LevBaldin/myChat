@@ -2,6 +2,7 @@ import { useState } from "react"
 import Button from "../ui/Button"
 import Input from "../ui/Input"
 import { LogInData } from "@/app/auth/page"
+import Link from "next/link"
 
 function LoginForm() {
     const [value, setValue] = useState<LogInData>({ email: "", password: "" })
@@ -13,7 +14,9 @@ function LoginForm() {
                 <Input setValue={setValue} value={value.password} type="password" id="password" placeholder="*****" label="Password:" />
                 <div className="flex gap-5 justify-center items-center self-center flex-col max-w-4/5">
                     <Button text="Log In" bg="main" />
-                    <Button text="I don't have an accout" />
+                    <Link href={"/"} className="">
+                        I don't have an account
+                    </Link>
                 </div>
             </form>
         </>

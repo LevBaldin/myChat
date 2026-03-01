@@ -3,7 +3,9 @@ import { motion } from "framer-motion"
 
 import { appearance, slideUp } from "../lib/animations"
 import LoginForm from "../components/forms/LoginForm"
-import { useState } from "react"
+// import { useState } from "react"
+// import MainForm from "../components/forms/MainForm"
+// import { Input } from "../components/ui/Input"
 
 export interface LogInData {
     email: string
@@ -11,6 +13,8 @@ export interface LogInData {
 }
 export type SetState<T> = React.Dispatch<React.SetStateAction<T>>
 export default function Page() {
+    // const [value, setValue] = useState<LogInData>({ email: "", password: "" })
+
     return (
         <>
             <div className="min-h-screen min-w-screen flex justify-self-center justify-center items-center">
@@ -29,6 +33,8 @@ export default function Page() {
                         </motion.h2>
                     </div>
                     <LoginForm />
+                    {/* <MainForm />
+                     */}
                 </motion.div>
             </div>
         </>

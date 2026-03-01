@@ -1,15 +1,15 @@
-"ues client"
+"use client"
 
 import { LogInData, SetState } from "@/app/auth/page"
-interface Input {
+export interface InputT<T> {
     type: string
     id: string
     placeholder?: string
     label?: string
-    setValue: SetState<LogInData>
-    value: string
+    setValue: SetState<T>
+    value?: string
 }
-function Input({ type, id, placeholder, label, setValue, value }: Input) {
+function Input<T>({ type, id, placeholder, label, setValue, value }: InputT<T>) {
     function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
         setValue((prev) => ({
             ...prev,

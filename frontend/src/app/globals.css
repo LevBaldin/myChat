@@ -38,6 +38,7 @@
     color: #00101f;
 }
 body {
+    min-height: 100vh;
     background: radial-gradient(#08243e, #00101f);
     color: var(--foreground);
     font-family: "Nunito", sans-serif;
