@@ -45,6 +45,7 @@ export async function logIn(params: { email: string; password: string }) {
     })
     return {
         tokenAccess,
+        tokenRefresh,
         user: {
             id: user.id,
             name: user.name,

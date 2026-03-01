@@ -18,7 +18,6 @@ io.on("connection", (socket) => {
 // app.get((req, res) => {
 //     res.send("<p>dsflsdkfjsdlfkj</p>")
 // })
-
 server.listen(5000, "localhost", () => {
     console.log("Server is working.")
 })
