@@ -1,10 +1,7 @@
 import express from "express"
 import type { Application, Request, Response } from "express"
 import { logIn } from "../services/logIn"
-// const app: Application = express()
-// app.get((req:Request, res:Response) => {
 
-// })
 export const loginController = async (req: Request, res: Response) => {
     try {
         const { email, password } = req.body
