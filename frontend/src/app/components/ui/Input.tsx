@@ -24,6 +24,7 @@ function Input<T>({ type, id, placeholder, label, setValue, value }: InputT<T>) 
                 </label>
             )}
             <input
+                required
                 onChange={handleChange}
                 type={type}
                 id={id}

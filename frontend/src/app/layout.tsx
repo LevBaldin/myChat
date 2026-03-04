@@ -2,6 +2,8 @@ import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { Nunito } from "next/font/google"
 import "./globals.css"
+import { Toaster } from "react-hot-toast"
+import ToasterProvider from "./components/providers/ToasterProvider"
 export const nunito = Nunito({
     subsets: ["latin", "cyrillic"], // Подключаем кириллицу,   // Выбираем нужные веса (Regular, Semi-Bold, Bold)             // Текст виден сразу (сначала системным шрифтом)
     variable: "--font-nunito" // CSS-переменная для Tailwind или CSS-модулей

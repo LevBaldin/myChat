@@ -9,7 +9,7 @@ export async function logIn(params: { email: string; password: string }) {
         }
     })
     if (!user) {
-        throw new Error("User's not found")
+        throw new Error("User not found")
     }
     const isMatch = await bcrypt.compare(params.password, user.password)
     if (!isMatch) {

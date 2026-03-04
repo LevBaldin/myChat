@@ -15,9 +15,22 @@ export const loginController = async (req: Request, res: Response) => {
             user: result.user,
             tokenAccess: result.tokenAccess
         })
-    } catch (error: any) {
-        res.status(401).json({
-            message: error.message
-        })
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+            if (error?.message === "User not found") {
+                res.status(404).json({
+                    message: "User is not found"
+                })
+            }
+            if (error.message === "Wrong password") {
+                res.status(400).json({
+                    message: "Wrong password"
+                })
+            }
+        } else {
+            return res.status(500).json({
+                message: "Something wrong with the server"
+            })
+        }
     }
 }

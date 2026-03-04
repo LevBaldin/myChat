@@ -3,6 +3,8 @@ import { motion } from "framer-motion"
 
 import { appearance, slideUp } from "../lib/animations"
 import LoginForm from "../components/forms/LoginForm"
+import { Toaster } from "react-hot-toast"
+import ToasterProvider from "../components/providers/ToasterProvider"
 // import { useState } from "react"
 // import MainForm from "../components/forms/MainForm"
 // import { Input } from "../components/ui/Input"
@@ -18,6 +20,7 @@ export default function Page() {
     return (
         <>
             <div className="min-h-screen min-w-screen flex justify-self-center justify-center items-center">
+                <ToasterProvider />
                 <motion.div
                     variants={appearance}
                     initial="hidden"
@@ -33,8 +36,6 @@ export default function Page() {
                         </motion.h2>
                     </div>
                     <LoginForm />
-                    {/* <MainForm />
-                     */}
                 </motion.div>
             </div>
         </>
