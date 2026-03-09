@@ -1,7 +1,7 @@
 "use client"
 
 import { LogInData, SetState } from "@/app/auth/page"
-export interface InputT<T> {
+export interface InputProps<T> {
     type: string
     id: string
     placeholder?: string
@@ -9,7 +9,7 @@ export interface InputT<T> {
     setValue: SetState<T>
     value?: string
 }
-function Input<T>({ type, id, placeholder, label, setValue, value }: InputT<T>) {
+function Input<T>({ type, id, placeholder, label, setValue, value }: InputProps<T>) {
     function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
         setValue((prev) => ({
             ...prev,
@@ -23,15 +23,17 @@ function Input<T>({ type, id, placeholder, label, setValue, value }: InputT<T>) 
                     {label}
                 </label>
             )}
-            <input
-                required
-                onChange={handleChange}
-                type={type}
-                id={id}
-                value={value}
-                placeholder={placeholder}
-                className=" bg-font/10 hover:bg-accent/8 focus:outline-3 transition duration-100 outline-font-active backdrop-blur-3xl rounded-xl p-3"
-            />
+            <div>
+                <input
+                    required
+                    onChange={handleChange}
+                    type={type}
+                    id={id}
+                    value={value}
+                    placeholder={placeholder}
+                    className=" bg-font/10 hover:bg-accent/8 focus:outline-3 transition duration-100 outline-font-active backdrop-blur-3xl rounded-xl p-3"
+                />
+            </div>
         </div>
     )
 }

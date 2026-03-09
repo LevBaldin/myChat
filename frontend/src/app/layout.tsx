@@ -2,20 +2,10 @@ import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { Nunito } from "next/font/google"
 import "./globals.css"
-import { Toaster } from "react-hot-toast"
-import ToasterProvider from "./components/providers/ToasterProvider"
+import StoreProvider from "./components/providers/StoreProvider"
 export const nunito = Nunito({
-    subsets: ["latin", "cyrillic"], // Подключаем кириллицу,   // Выбираем нужные веса (Regular, Semi-Bold, Bold)             // Текст виден сразу (сначала системным шрифтом)
-    variable: "--font-nunito" // CSS-переменная для Tailwind или CSS-модулей
-})
-const geistSans = Geist({
-    variable: "--font-nunito",
-    subsets: ["latin"]
-})
-
-const geistMono = Geist_Mono({
-    variable: "--font-nunito",
-    subsets: ["latin"]
+    subsets: ["latin", "cyrillic"],
+    variable: "--font-nunito"
 })
 
 export const metadata: Metadata = {
@@ -30,7 +20,9 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={`${nunito.variable} ${nunito.className} antialiased min-h-max`}>{children}</body>
+            <body className={`${nunito.variable} ${nunito.className} antialiased min-h-max`}>
+                <StoreProvider>{children}</StoreProvider>
+            </body>
         </html>
     )
 }

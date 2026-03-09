@@ -17,7 +17,7 @@ function SignUpForm() {
             <div className="flex gap-5 justify-center items-center self-center flex-col max-w-4/5">
                 <Button text="Log In" bg="main" />
                 <Link href={"/"} className="">
-                    I don't have an account
+                    I don&apos;t have an account
                 </Link>
             </div>
         </form>
