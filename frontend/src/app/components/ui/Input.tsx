@@ -1,6 +1,6 @@
 "use client"
 
-import { LogInData, SetState } from "@/app/auth/page"
+import { SetState } from "@/app/auth/login/page"
 export interface InputProps<T> {
     type: string
     id: string

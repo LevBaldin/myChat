@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google"
 import { Nunito } from "next/font/google"
 import "./globals.css"
 import StoreProvider from "./components/providers/StoreProvider"
+import ToasterProvider from "./components/providers/ToasterProvider"
 export const nunito = Nunito({
     subsets: ["latin", "cyrillic"],
     variable: "--font-nunito"
@@ -21,6 +22,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={`${nunito.variable} ${nunito.className} antialiased min-h-max`}>
+                
                 <StoreProvider>{children}</StoreProvider>
             </body>
         </html>
