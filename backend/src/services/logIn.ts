@@ -2,7 +2,8 @@ import "dotenv/config"
 import bcrypt from "bcrypt"
 import { prisma } from "../lib/prisma"
 import jwt from "jsonwebtoken"
-export async function logIn(params: { email: string; password: string }) {
+import { LogInData } from "../../../shared/types/auth"
+export async function logIn(params: LogInData) {
     const user = await prisma.user.findUnique({
         where: {
             email: params.email

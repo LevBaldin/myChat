@@ -19,12 +19,12 @@ export const loginController = async (req: Request, res: Response) => {
         if (error instanceof Error) {
             if (error?.message === "User not found") {
                 res.status(404).json({
-                    message: "User is not found"
+                    message: error?.message
                 })
             }
             if (error.message === "Wrong password") {
                 res.status(400).json({
-                    message: "Wrong password"
+                    message: error.message
                 })
             }
         } else {

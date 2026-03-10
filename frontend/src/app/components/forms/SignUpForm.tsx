@@ -3,12 +3,12 @@ import { useState } from "react"
 import Input from "../ui/Input"
 import Button from "../ui/Button"
 
+export interface SignUpData {
+    email: string
+    username: string
+    password: string
+}
 function SignUpForm() {
-    interface SignUpData {
-        email: string
-        username: string
-        password: string
-    }
     const [value, setValue] = useState<SignUpData>({ email: "", username: "", password: "" })
     return (
         <form action="" className="p-3 rounded-2xl min-w-2 bg-secondary flex flex-col gap-3">
