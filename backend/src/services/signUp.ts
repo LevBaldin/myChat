@@ -1,25 +1,38 @@
 import { prisma } from "../lib/prisma"
 import bcrypt from "bcrypt"
+import { logIn } from "./logIn"
 export async function signUp(params: { email: string; password: string; username: string }) {
     const user = await prisma.user.findUnique({
         where: {
             email: params.email
         }
     })
+
     if (user) {
         throw new Error("That email already have accaunt")
     }
+
     if (params.password.length < 8) {
         throw new Error("Password must be at least 8 characters")
     }
-    const hashPassword = await bcrypt.hash(params.password, 10)
 
-    const userData = await prisma.user.create({
+    const hashedPassword = await bcrypt.hash(params.password, 10)
+
+    const newData = await prisma.user.create({
         data: {
             email: params.email,
-            password: hashPassword,
+            password: hashedPassword,
             name: params.username
         }
     })
-    return { userData }
+
+    // if (!newData) {
+    //     throw new Error("User is not created")
+    // }
+
+    const authData = await logIn({
+        email: params.email,
+        password: params.password
+    })
+    return { message: "User created and logged in", ...authData }
 }

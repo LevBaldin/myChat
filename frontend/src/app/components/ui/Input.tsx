@@ -8,8 +8,9 @@ export interface InputProps<T> {
     label?: string
     setValue: SetState<T>
     value?: string
+    required?: boolean
 }
-function Input<T>({ type, id, placeholder, label, setValue, value }: InputProps<T>) {
+function Input<T>({ type, id, placeholder, label, setValue, value, required = true }: InputProps<T>) {
     function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
         setValue((prev) => ({
             ...prev,
@@ -17,23 +18,22 @@ function Input<T>({ type, id, placeholder, label, setValue, value }: InputProps<
         }))
     }
     return (
-        <div className={` text-xl ${label ? "justify-between " : "justify-center "}flex flex-col sm:flex-row gap-1 p-3 items-center`}>
+        <div className={` text-xl ${label ? "justify-between " : "justify-center "} flex flex-col shrink gap-1 p-2 items-center `}>
             {label && (
-                <label htmlFor="" className="hidden sm:block">
+                <label htmlFor="" className="hidden sm:block self-start text-sm">
                     {label}
                 </label>
             )}
-            <div>
-                <input
-                    required
-                    onChange={handleChange}
-                    type={type}
-                    id={id}
-                    value={value}
-                    placeholder={placeholder}
-                    className=" bg-font/10 hover:bg-accent/8 focus:outline-3 transition duration-100 outline-font-active backdrop-blur-3xl rounded-xl p-3"
-                />
-            </div>
+
+            <input
+                required={required}
+                onChange={handleChange}
+                type={type}
+                id={id}
+                value={value}
+                placeholder={placeholder}
+                className="justify-self-center bg-font/10 hover:bg-accent/8 p-2 rounded-md outline-font-active focus:outline-3 invalid:outline-orange-800 w-full text-md transition duration-100 shrink"
+            />
         </div>
     )
 }

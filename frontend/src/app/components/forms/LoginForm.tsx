@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useState } from "react"
+import React, { useCallback, useEffect, useMemo, useState } from "react"
 import Button from "../ui/Button"
 import Input from "../ui/Input"
 import { LogInData } from "../../../../../shared/types/auth"
@@ -14,6 +14,7 @@ import { RootState } from "@/store/store"
 
 function LoginForm() {
     const [value, setValue] = useState<LogInData>({ email: "", password: "" })
+    const [isDisabled, setIsDisabled] = useState<boolean>(false)
     const dispatch = useDispatch()
     const state = useSelector((state: RootState) => state.auth)
     const router = useRouter()
@@ -23,10 +24,14 @@ function LoginForm() {
         }
     }, [state.isAuth, router])
 
-    async function handleSubmit(e: React.SubmitEvent) {
+    const handleSubmit = async (e: React.SubmitEvent) => {
         e.preventDefault()
+        setIsDisabled((prev) => !prev)
+        setTimeout(() => {
+            setIsDisabled((prev) => !prev)
+        }, 1000)
         try {
-            const result = await toast.promise(axios.post("http://localhost:5000/api/auth/login", value, { withCredentials: true }), {
+            const result = await toast.promise(axios.post(`${process.env.NEXT_PUBLIC_API_URL}auth/login`, value, { withCredentials: true }), {
                 loading: "Loading",
                 success: (data) => `Welcome ${data.data.user.name}`,
                 error: (err) => err?.response?.data?.message || "Login failed"
@@ -41,12 +46,14 @@ function LoginForm() {
             }
         }
     }
+
+    // const throttledSubmit = useMemo(() => throttle(handleSubmit), [handleSubmit])
     return (
-        <form onSubmit={handleSubmit} action="" className="p-3 rounded-2xl min-w-2 bg-secondary flex flex-col gap-3">
+        <form onSubmit={handleSubmit} action="" className="flex flex-col gap-3 bg-secondary p-2 rounded-2xl max-w-5/6">
             <Input setValue={setValue} value={value.email} type="text" id="email" placeholder="Your Email" label="Email:" />
             <Input setValue={setValue} value={value.password} type="password" id="password" placeholder="*****" label="Password:" />
-            <div className="flex gap-5 justify-center items-center self-center flex-col max-w-4/5">
-                <Button text="Log In" bg="main" />
+            <div className="flex flex-col justify-center items-center self-center gap-5 max-w-4/5">
+                <Button text="Log In" bg="main" disabled={isDisabled} />
                 <Link href={"/auth/signup"} className="">
                     I don&apos;t have an account
                 </Link>
@@ -56,3 +63,6 @@ function LoginForm() {
 }
 
 export default LoginForm
+function throrrle<T>(handleSubmit: (e: React.SubmitEvent) => Promise<void>) {
+    throw new Error("Function not implemented.")
+}

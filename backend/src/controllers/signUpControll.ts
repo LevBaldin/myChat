@@ -1,11 +1,15 @@
+import { logIn } from "../services/logIn"
 import { signUp } from "../services/signUp"
 import { Request, Response } from "express"
 export const signUpController = async (req: Request, res: Response) => {
     try {
         const { email, password, username } = req.body
         const result = await signUp({ email, password, username })
+
+        console.log("Request recieved")
         res.status(201).json({
-            user: result.userData
+            user: result.user,
+            tokenAccess: result.tokenAccess
         })
     } catch (error: unknown) {
         if (error instanceof Error) {
@@ -13,7 +17,15 @@ export const signUpController = async (req: Request, res: Response) => {
                 res.status(409).json({
                     message: error?.message
                 })
+            } else if (error?.message === "Password must be at least 8 characters") {
+                res.status(400).json({
+                    message: error?.message
+                })
             }
+            console.error("Unkown error:", error)
+            return res.status(500).json({
+                message: "Server error"
+            })
         }
     }
 }

@@ -5,7 +5,6 @@ import "dotenv/config"
 import { createServer, Server as HTTPServer } from "http"
 import { Server } from "socket.io"
 import cookieParser from "cookie-parser"
-// import router from "./routes/loginRoute"
 import route from "./routes/loginRoute"
 const app: Application = express()
 app.use(
@@ -17,6 +16,7 @@ app.use(
 app.use(express.json())
 app.use(cookieParser())
 app.use("/api/auth", route)
+// app.use("/api/auth", route)
 const server: HTTPServer = createServer(app)
 const io: Server = new Server(server, {
     cors: {

@@ -5,6 +5,7 @@ import { logIn } from "../services/logIn"
 export const loginController = async (req: Request, res: Response) => {
     try {
         const { email, password } = req.body
+        console.log("Request recieved")
         const result = await logIn({ email, password })
         res.cookie("refreshToken", result.tokenRefresh, {
             httpOnly: true,
