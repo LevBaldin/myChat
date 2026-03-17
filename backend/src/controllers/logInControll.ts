@@ -10,7 +10,14 @@ export const loginController = async (req: Request, res: Response) => {
         res.cookie("refreshToken", result.tokenRefresh, {
             httpOnly: true,
             secure: true,
+            sameSite: "lax",
             maxAge: 7 * 24 * 60 * 60 * 1000
+        })
+        res.cookie("accessToken", result.tokenAccess, {
+            httpOnly: true,
+            secure: true,
+            sameSite: "lax",
+            maxAge: 15 * 60 * 1000
         })
         res.status(200).json({
             user: result.user,
@@ -19,12 +26,12 @@ export const loginController = async (req: Request, res: Response) => {
     } catch (error: unknown) {
         if (error instanceof Error) {
             if (error?.message === "User not found") {
-                res.status(404).json({
+                return res.status(404).json({
                     message: error?.message
                 })
             }
             if (error.message === "Wrong password") {
-                res.status(400).json({
+                return res.status(400).json({
                     message: error.message
                 })
             }
