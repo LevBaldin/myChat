@@ -1,8 +1,8 @@
 import "dotenv/config"
 import bcrypt from "bcrypt"
 import { prisma } from "../lib/prisma"
-import jwt from "jsonwebtoken"
 import { LogInData } from "../../../shared/types/auth"
+import { generateJWT } from "./generateJWT"
 export async function logIn(params: LogInData) {
     const user = await prisma.user.findUnique({
         where: {
@@ -16,26 +16,7 @@ export async function logIn(params: LogInData) {
     if (!isMatch) {
         throw new Error("Wrong password")
     }
-    const tokenAccess = jwt.sign(
-        {
-            userId: user.id,
-            email: user.email
-        },
-        process.env.JWT_SECRET_ACCESS!,
-        {
-            expiresIn: "15m"
-        }
-    )
-    const tokenRefresh = jwt.sign(
-        {
-            userId: user.id,
-            email: user.email
-        },
-        process.env.JWT_SECRET_REFRESH!,
-        {
-            expiresIn: "7d"
-        }
-    )
+    const { tokenAccess, tokenRefresh } = generateJWT(user.id, user.email)
     await prisma.user.update({
         where: {
             id: user.id
