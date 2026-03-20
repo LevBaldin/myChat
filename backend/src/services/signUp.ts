@@ -26,10 +26,6 @@ export async function signUp(params: { email: string; password: string; username
         }
     })
 
-    // if (!newData) {
-    //     throw new Error("User is not created")
-    // }
-
     const authData = await logIn({
         email: params.email,
         password: params.password
