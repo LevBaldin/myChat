@@ -11,12 +11,10 @@ export interface UserData {
         name: string
         email: string
     } | null
-    tokenAccess: string | null
     isAuth: boolean
 }
 const initialState: UserData = {
     user: null,
-    tokenAccess: null,
     isAuth: false
 }
 
@@ -25,13 +23,10 @@ export const authSlice = createSlice({
     initialState,
     reducers: {
         setCredentials: (state, action: PayloadAction<UserData>) => {
-            state.tokenAccess = action.payload.tokenAccess
             state.user = action.payload.user
             state.isAuth = true
         },
         logOut: (state) => {
-            // state = { user: null, tokenAcces: null, isAuth: false }
-            state.tokenAccess = null
             state.user = null
             state.isAuth = false
         }
