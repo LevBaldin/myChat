@@ -6,7 +6,7 @@ export const appearance: Variants = {
         opacity: 1,
         scale: 1,
         transition: {
-            duration: 0.8,
+            duration: 0.5,
             ease: "easeInOut",
             delay: 0.1
         }
