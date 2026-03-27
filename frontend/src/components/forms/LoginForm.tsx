@@ -1,8 +1,8 @@
 "use client"
-import React, { useCallback, useEffect, useMemo, useState } from "react"
+import React, { useEffect, useState } from "react"
 import Button from "../ui/Button"
 import Input from "../ui/Input"
-import { LogInData } from "../../../../../shared/types/auth"
+import { LogInData } from "../../../../shared/types/auth"
 import Link from "next/link"
 import axios from "axios"
 import toast from "react-hot-toast"
@@ -20,7 +20,7 @@ function LoginForm() {
     const router = useRouter()
     useEffect(() => {
         if (state.isAuth) {
-            router.push("/")
+            router.push("/home")
         }
     }, [state.isAuth, router])
 
@@ -46,15 +46,13 @@ function LoginForm() {
             }
         }
     }
-
-    // const throttledSubmit = useMemo(() => throttle(handleSubmit), [handleSubmit])
     return (
         <form onSubmit={handleSubmit} action="" className="flex flex-col gap-3 bg-secondary p-2 rounded-2xl max-w-5/6">
             <Input setValue={setValue} value={value.email} type="text" id="email" placeholder="Your Email" label="Email:" />
             <Input setValue={setValue} value={value.password} type="password" id="password" placeholder="*****" label="Password:" />
             <div className="flex flex-col justify-center items-center self-center gap-5 max-w-4/5">
                 <Button text="Log In" bg="main" disabled={isDisabled} />
-                <Link href={"/auth/signup"} className="">
+                <Link href={"/auth/signup"} prefetch className="">
                     I don&apos;t have an account
                 </Link>
             </div>
@@ -63,6 +61,3 @@ function LoginForm() {
 }
 
 export default LoginForm
-function throrrle<T>(handleSubmit: (e: React.SubmitEvent) => Promise<void>) {
-    throw new Error("Function not implemented.")
-}
