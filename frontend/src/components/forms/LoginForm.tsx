@@ -11,6 +11,7 @@ import { setCredentials } from "@/store/authSlice"
 import { useRouter } from "next/navigation"
 import { useSelector } from "react-redux"
 import { RootState } from "@/store/store"
+import axiosInstance from "@/app/lib/axiosInstance"
 
 function LoginForm() {
     const [value, setValue] = useState<LogInData>({ email: "", password: "" })
@@ -31,7 +32,7 @@ function LoginForm() {
             setIsDisabled((prev) => !prev)
         }, 1000)
         try {
-            const result = await toast.promise(axios.post(`${process.env.NEXT_PUBLIC_API_URL}auth/login`, value, { withCredentials: true }), {
+            const result = await toast.promise(axiosInstance.post("auth/login", value), {
                 loading: "Loading",
                 success: (data) => `Welcome ${data.data.user.name}`,
                 error: (err) => err?.response?.data?.message || "Login failed"

@@ -5,6 +5,7 @@ import Button from "../ui/Button"
 import axios from "axios"
 import toast from "react-hot-toast"
 import Link from "next/link"
+import axiosInstance from "@/app/lib/axiosInstance"
 
 export interface SignUpData {
     email: string
@@ -26,7 +27,7 @@ function SignUpForm() {
             return
         }
         try {
-            const response = await toast.promise(axios.post(`${process.env.NEXT_PUBLIC_API_URL}auth/signup`, value, { withCredentials: true }), {
+            const response = await toast.promise(axiosInstance.post("auth/signup", value), {
                 loading: "Loading",
                 success: (data) => `Welcome ${data.data.user.name}`,
                 error: (err) => `${err.response?.data.message} ` || "Failed to create user"
