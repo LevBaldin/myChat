@@ -5,22 +5,24 @@ import "dotenv/config"
 import { createServer, Server as HTTPServer } from "http"
 import { Server } from "socket.io"
 import cookieParser from "cookie-parser"
-import route from "./routes/loginRoute"
+import route from "./routes/publicRoutes"
+import { authMiddleware } from "./middlewares/authMiddleware"
 const app: Application = express()
 app.use(
     cors({
-        origin: "http://localhost:3000",
+        origin: "http://localhost:4000",
         credentials: true
     })
 )
 app.use(express.json())
 app.use(cookieParser())
 app.use("/api/auth", route)
-// app.use("/api/auth", route)
+app.use(authMiddleware)
+
 const server: HTTPServer = createServer(app)
 const io: Server = new Server(server, {
     cors: {
-        origin: "http://localhost:3000",
+        origin: "http://localhost:4000",
         methods: ["GET", "POST"]
     }
 })
