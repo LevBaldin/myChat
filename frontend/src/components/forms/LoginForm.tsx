@@ -11,7 +11,7 @@ import { setCredentials } from "@/store/authSlice"
 import { useRouter } from "next/navigation"
 import { useSelector } from "react-redux"
 import { RootState } from "@/store/store"
-import axiosInstance from "@/app/lib/axiosInstance"
+import axiosInstance from "@/app/lib/axiosInterseptor"
 
 function LoginForm() {
     const [value, setValue] = useState<LogInData>({ email: "", password: "" })

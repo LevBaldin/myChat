@@ -2,7 +2,6 @@
 import { useState } from "react"
 import Input from "../ui/Input"
 import Button from "../ui/Button"
-import axios from "axios"
 import toast from "react-hot-toast"
 import Link from "next/link"
 import axiosInstance from "@/app/lib/axiosInstance"
