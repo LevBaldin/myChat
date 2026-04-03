@@ -3,17 +3,18 @@ import { logOut } from "../services/logOut"
 export const logOutController = async (req: Request, res: Response) => {
     try {
         console.log("Request for logOut recieved")
-        const { id } = req.body
-        if (!id) return res.status(400).json({ message: "User ID is required" })
-        await logOut(id)
+        const tokenRefresh = req.cookies.refreshToken
+        console.log(tokenRefresh)
+        if (!tokenRefresh) return res.status(400).json({ message: "You are already logged out" })
+        console.log("waitng for service")
+
+        await logOut(tokenRefresh)
+        console.log("sercise done")
+
         res.clearCookie("accessToken")
         res.clearCookie("refreshToken")
-        return res.status(200).json("Logged out successfully")
+        return res.status(200).json({ message: "Logged out successfully" })
     } catch (error: unknown) {
-        if (error instanceof Error) {
-            if (error.message === "User was not found") {
-                res.status(400).json("User with that id does not exist  ")
-            }
-        }
+        res.status(500).json({ message: error })
     }
 }
