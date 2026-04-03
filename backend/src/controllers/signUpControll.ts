@@ -6,7 +6,7 @@ export const signUpController = async (req: Request, res: Response) => {
         const { email, password, username } = req.body
         const result = await signUp({ email, password, username })
 
-        console.log("Request recieved")
+        console.log("Request for signUp recieved")
         res.status(201).json({
             user: result.user,
             tokenAccess: result.tokenAccess

@@ -1,9 +1,10 @@
 import type { Request, Response, NextFunction } from "express"
 import jwt from "jsonwebtoken"
 export async function authMiddleware(req: Request, res: Response, next: NextFunction) {
+    console.log("auth middleware is working")
     const token = req.cookies.accessToken
     if (!token) {
-        return res.status(401).json("Access token not found")
+        return res.status(401).json("Access token not found (authMiddleware)")
     }
     const secret = process.env.JWT_SECRET_ACCESS
     if (!secret) {
