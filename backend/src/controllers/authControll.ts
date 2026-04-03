@@ -1,12 +1,20 @@
 import type { Request, Response } from "express"
 import { findUserByTokenRefresh } from "../services/findUserByTokenRefresh"
 import { generateJWT } from "../services/generateJWT"
+import jwt from "jsonwebtoken"
 import { updateRefreshToken } from "../services/updateRefreshToken"
 export const refresh = async (req: Request, res: Response) => {
+    console.log("Auth controll worked")
     try {
-        const refreshToken = req.cookies.refreshToken
-        if (!refreshToken) return res.status(401).json({ message: "No refresh token" })
-        const userData = await findUserByTokenRefresh(refreshToken)
+        const oldTokenRefresh = req.cookies.refreshToken
+        console.log("refresh token in refhresh " + oldTokenRefresh)
+        if (!oldTokenRefresh) return res.status(401).json({ message: "No refresh token" })
+        try {
+            jwt.verify(oldTokenRefresh, process.env.JWT_SECRET_REFRESH as string)
+        } catch (error: unknown) {
+            return res.status(403).json({ message: "Refresh token invalid or expired" })
+        }
+        const userData = await findUserByTokenRefresh(oldTokenRefresh)
         if (!userData) return res.status(403).json({ message: "Invalid refresh token" })
         const { tokenAccess, tokenRefresh } = generateJWT(userData.user.id, userData.user.email)
         await updateRefreshToken({ id: userData.user.id, tokenRefresh: tokenRefresh })
@@ -27,8 +35,7 @@ export const refresh = async (req: Request, res: Response) => {
             message: "Tokens refreshed"
         })
     } catch (error: unknown) {
-        if (error instanceof Error) {
-            res.status(500).json("Something wrong with server")
-        }
+        console.error("authControll error: " + error)
+        return res.status(500).json("Something wrong with server")
     }
 }
