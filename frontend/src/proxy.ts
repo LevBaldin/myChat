@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
-import path from "path"
 
 export function proxy(req: NextRequest) {
-    const token = req.cookies.get("accessToken")?.value
+    const token = req.cookies.get("refreshToken")?.value
     const { pathname } = req.nextUrl
     if (token && pathname.startsWith("/auth")) {
         return NextResponse.redirect(new URL("/home", req.url))
