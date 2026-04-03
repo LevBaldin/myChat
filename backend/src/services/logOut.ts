@@ -1,9 +1,9 @@
 import { prisma } from "../lib/prisma"
 
-export async function logOut(id: string): Promise<void> {
+export async function logOut(tokenRefresh: string): Promise<void> {
     const deleteTokenRefresh = await prisma.user.update({
         where: {
-            id: id
+            refreshToken: tokenRefresh
         },
         data: {
             refreshToken: null

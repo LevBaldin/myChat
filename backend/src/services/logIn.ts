@@ -3,7 +3,13 @@ import bcrypt from "bcrypt"
 import { prisma } from "../lib/prisma"
 import { LogInData } from "../../../shared/types/auth"
 import { generateJWT } from "./generateJWT"
-export async function logIn(params: LogInData) {
+import { User } from "../../../shared/types/auth"
+export interface authControllData {
+    tokenAccess: string
+    tokenRefresh: string
+    user: User
+}
+export async function logIn(params: LogInData): Promise<authControllData> {
     const user = await prisma.user.findUnique({
         where: {
             email: params.email

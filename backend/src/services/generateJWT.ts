@@ -1,6 +1,8 @@
 import jwt from "jsonwebtoken"
 import "dotenv/config"
-export function generateJWT(id: string, email: string) {
+import { authControllData } from "./logIn"
+interface authTokens extends Omit<authControllData, "user"> {}
+export function generateJWT(id: string, email: string): authTokens {
     const tokenAccess = jwt.sign(
         {
             userId: id,

@@ -1,7 +1,7 @@
 import { prisma } from "../lib/prisma"
 import bcrypt from "bcrypt"
-import { logIn } from "./logIn"
-export async function signUp(params: { email: string; password: string; username: string }) {
+import { authControllData, logIn } from "./logIn"
+export async function signUp(params: { email: string; password: string; username: string }): Promise<authControllData> {
     const user = await prisma.user.findUnique({
         where: {
             email: params.email
@@ -30,5 +30,5 @@ export async function signUp(params: { email: string; password: string; username
         email: params.email,
         password: params.password
     })
-    return { message: "User created and logged in", ...authData }
+    return { ...authData }
 }
