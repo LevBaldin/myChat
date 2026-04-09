@@ -1,19 +1,18 @@
 "use client"
-import { logOut } from "@/store/authSlice"
+import { RootState } from "@/store/store"
 import Link from "next/link"
-import { useDispatch } from "react-redux"
+import { useRouter } from "next/navigation"
+import { useEffect } from "react"
+import { useSelector } from "react-redux"
 export default function Home() {
-    // const state = useSelector((state: RootState) => state.auth)
-    const dispatch = useDispatch()
+    const router = useRouter()
+    const isLoggedIn = useSelector((state: RootState) => state.auth.isAuth)
+    useEffect(() => {
+        if (isLoggedIn) router.replace("/home")
+    }, [isLoggedIn, router])
     return (
         <>
-            <h1>hello</h1>
-            <Link href={"auth/login"}>
-                <button>go to auth</button>
-            </Link>
-            <button onClick={() => dispatch(logOut())} className=" fixed top-20">
-                logOut
-            </button>
+            <Link href={"auth/login"}>go to login</Link>
         </>
     )
 }

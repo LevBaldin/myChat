@@ -1,8 +1,8 @@
 import type { Metadata } from "next"
 import { Nunito } from "next/font/google"
 import "./globals.css"
-import StoreProvider from "./components/providers/StoreProvider"
-import ToasterProvider from "./components/providers/ToasterProvider"
+import StoreProvider from "@/components/providers/StoreProvider"
+import ToasterProvider from "@/components/providers/ToasterProvider"
 export const nunito = Nunito({
     subsets: ["latin", "cyrillic"],
     variable: "--font-nunito"
