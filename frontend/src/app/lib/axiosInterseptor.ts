@@ -6,14 +6,15 @@ axiosInstance.interceptors.response.use(
         return response
     },
     async function onRejected(error) {
+        console.log("Axios interseptor was called")
         const originalRequest = error.config
         if (!originalRequest._retry && error.response?.status === 401) {
             originalRequest._retry = true
             try {
                 await axios.post(`${process.env.NEXT_PUBLIC_API_URL}auth/refresh`, {}, { withCredentials: true })
                 return axiosInstance(originalRequest)
-            } catch (error) {
-                console.log(error)
+            } catch (err) {
+                return Promise.reject(err)
             }
         }
         return Promise.reject(error)
