@@ -4,13 +4,8 @@ export const logOutController = async (req: Request, res: Response) => {
     try {
         console.log("Request for logOut recieved")
         const tokenRefresh = req.cookies.refreshToken
-        console.log(tokenRefresh)
         if (!tokenRefresh) return res.status(400).json({ message: "You are already logged out" })
-        console.log("waitng for service")
-
         await logOut(tokenRefresh)
-        console.log("sercise done")
-
         res.clearCookie("accessToken")
         res.clearCookie("refreshToken")
         return res.status(200).json({ message: "Logged out successfully" })

@@ -7,7 +7,6 @@ export const refresh = async (req: Request, res: Response) => {
     console.log("Auth controll worked")
     try {
         const oldTokenRefresh = req.cookies.refreshToken
-        console.log("refresh token in refhresh " + oldTokenRefresh)
         if (!oldTokenRefresh) return res.status(401).json({ message: "No refresh token" })
         try {
             jwt.verify(oldTokenRefresh, process.env.JWT_SECRET_REFRESH as string)
