@@ -1,10 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import type { PayloadAction } from "@reduxjs/toolkit"
-import { object } from "framer-motion/client"
 
-// export interface AuthState {
-//     value: UserData
-// }
 export interface UserData {
     user: {
         id: string
@@ -33,7 +29,6 @@ export const authSlice = createSlice({
     }
 })
 
-// Action creators are generated for each case reducer function
 export const { setCredentials, logOut } = authSlice.actions
 
 export default authSlice.reducer
