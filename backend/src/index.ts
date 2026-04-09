@@ -7,17 +7,19 @@ import { Server } from "socket.io"
 import cookieParser from "cookie-parser"
 import route from "./routes/publicRoutes"
 import { authMiddleware } from "./middlewares/authMiddleware"
+import privRoute from "./routes/privateRoutes"
 const app: Application = express()
-app.use(
-    cors({
-        origin: "http://localhost:4000",
-        credentials: true
-    })
-)
+const corsConfig = {
+    origin: "http://localhost:4000",
+    credentials: true
+}
+app.options("/", cors(corsConfig))
+app.use(cors(corsConfig))
 app.use(express.json())
 app.use(cookieParser())
 app.use("/api/auth", route)
 app.use(authMiddleware)
+app.use("/api", privRoute)
 
 const server: HTTPServer = createServer(app)
 const io: Server = new Server(server, {
