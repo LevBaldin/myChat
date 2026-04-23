@@ -1,8 +1,8 @@
 import { Router } from "express"
-import { loginController } from "../controllers/logInControll"
-import { signUpController } from "../controllers/signUpControll"
-import { logOutController } from "../controllers/logOutControll"
-import { refresh } from "../controllers/authControll"
+import { loginController } from "../controllers/auth/logInControll"
+import { signUpController } from "../controllers/auth/signUpControll"
+import { logOutController } from "../controllers/auth/logOutControll"
+import { refresh } from "../controllers/auth/authControll"
 const router = Router()
 router.post("/login", loginController)
 router.post("/signup", signUpController)

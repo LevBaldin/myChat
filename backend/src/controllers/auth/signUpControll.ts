@@ -1,5 +1,5 @@
-import { logIn } from "../services/logIn"
-import { signUp } from "../services/signUp"
+import { logIn } from "../../services/auth/logIn"
+import { signUp } from "../../services/auth/signUp"
 import { Request, Response } from "express"
 export const signUpController = async (req: Request, res: Response) => {
     try {
@@ -24,7 +24,7 @@ export const signUpController = async (req: Request, res: Response) => {
             }
             console.error("Unkown error:", error)
             return res.status(500).json({
-                message: "Server error"
+                message: "Server error: " + error
             })
         }
     }

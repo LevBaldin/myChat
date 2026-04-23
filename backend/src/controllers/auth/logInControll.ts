@@ -1,6 +1,6 @@
 import express from "express"
 import type { Application, Request, Response } from "express"
-import { logIn } from "../services/logIn"
+import { logIn } from "../../services/auth/logIn"
 
 export const loginController = async (req: Request, res: Response) => {
     try {

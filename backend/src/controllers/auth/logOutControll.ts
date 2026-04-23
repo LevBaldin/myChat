@@ -1,5 +1,5 @@
 import type { Request, Response } from "express"
-import { logOut } from "../services/logOut"
+import { logOut } from "../../services/auth/logOut"
 export const logOutController = async (req: Request, res: Response) => {
     try {
         console.log("Request for logOut recieved")

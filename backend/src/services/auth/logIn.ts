@@ -1,9 +1,9 @@
 import "dotenv/config"
 import bcrypt from "bcrypt"
-import { prisma } from "../lib/prisma"
-import { LogInData } from "../../../shared/types/auth"
+import { prisma } from "../../lib/prisma"
+import { LogInData } from "../../../../shared/types/auth"
 import { generateJWT } from "./generateJWT"
-import { User } from "../../../shared/types/auth"
+import { User } from "../../../../shared/types/auth"
 export interface authControllData {
     tokenAccess: string
     tokenRefresh: string

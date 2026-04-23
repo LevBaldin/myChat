@@ -1,8 +1,8 @@
 import type { Request, Response } from "express"
-import { findUserByTokenRefresh } from "../services/findUserByTokenRefresh"
-import { generateJWT } from "../services/generateJWT"
+import { findUserByTokenRefresh } from "../../services/auth/findUserByTokenRefresh"
+import { generateJWT } from "../../services/auth/generateJWT"
 import jwt from "jsonwebtoken"
-import { updateRefreshToken } from "../services/updateRefreshToken"
+import { updateRefreshToken } from "../../services/auth/updateRefreshToken"
 export const refresh = async (req: Request, res: Response) => {
     console.log("Auth controll worked")
     try {
@@ -35,6 +35,6 @@ export const refresh = async (req: Request, res: Response) => {
         })
     } catch (error: unknown) {
         console.error("authControll error: " + error)
-        return res.status(500).json("Something wrong with server")
+        return res.status(500).json("Something wrong with server: " + error)
     }
 }

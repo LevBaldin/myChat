@@ -1,4 +1,4 @@
-import { prisma } from "../lib/prisma"
+import { prisma } from "../../lib/prisma"
 import bcrypt from "bcrypt"
 import { authControllData, logIn } from "./logIn"
 export async function signUp(params: { email: string; password: string; username: string }): Promise<authControllData> {

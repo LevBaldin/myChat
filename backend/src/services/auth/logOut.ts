@@ -1,4 +1,4 @@
-import { prisma } from "../lib/prisma"
+import { prisma } from "../../lib/prisma"
 
 export async function logOut(tokenRefresh: string): Promise<void> {
     const deleteTokenRefresh = await prisma.user.update({

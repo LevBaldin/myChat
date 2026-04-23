@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { findUserByTokenRefresh } from "../services/findUserByTokenRefresh"
+import { findUserByTokenRefresh } from "../../services/auth/findUserByTokenRefresh"
 export async function getDataByTokenRefresh(req: Request, res: Response) {
     const tokenRefresh = req.cookies.refreshToken
     if (!tokenRefresh) res.status(401).json({ message: "tokenRefresh not found" })
