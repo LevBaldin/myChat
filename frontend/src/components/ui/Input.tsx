@@ -5,6 +5,7 @@ import Image from "next/image"
 import Cross from "../../../public/cross.svg"
 export interface InputProps<T> {
     type: string
+    disabled?: boolean
     id: string
     placeholder?: string
     label?: string
@@ -12,7 +13,7 @@ export interface InputProps<T> {
     value?: string
     required?: boolean
 }
-function Input<T>({ type, id, placeholder, label, setValue, value, required = true }: InputProps<T>) {
+function Input<T>({ type, disabled = false, id, placeholder, label, setValue, value, required = true }: InputProps<T>) {
     function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
         setValue((prev) => ({
             ...prev,
@@ -32,14 +33,15 @@ function Input<T>({ type, id, placeholder, label, setValue, value, required = tr
                     {label}
                 </label>
             )}
-            <div className="flex justify-between justify-self-center bg-font/10 hover:bg-accent/8 pr-2 rounded-md outline-font-active focus-within:outline-3 has-invalid:outline-orange-800 w-full text-md transition duration-100">
+            <div className="flex justify-between justify-self-center bg-font/10 hover:bg-accent/8 has-disabled:bg-primary/50 pr-2 rounded-md outline-font-active focus-within:outline-3 has-invalid:outline-orange-800 w-full text-md transition duration-100">
                 <input
+                    disabled={disabled}
                     required={required}
                     onChange={handleChange}
                     type={type}
                     id={id}
                     value={value}
-                    placeholder={placeholder}
+                    placeholder={disabled ? "Waitng for data..." : placeholder}
                     className="p-2 rounded-md outline-none w-full transition caret-font"
                 />
                 {value && (
