@@ -22,7 +22,8 @@ export async function signUp(params: { email: string; password: string; username
         data: {
             email: params.email,
             password: hashedPassword,
-            name: params.username
+            name: params.username,
+            avatar: "https://res.cloudinary.com/dk7p9j9ye/image/upload/v1776953782/stock_image_lomcvh.jpg"
         }
     })
 
