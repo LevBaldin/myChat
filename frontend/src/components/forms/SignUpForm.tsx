@@ -50,7 +50,9 @@ function SignUpForm() {
             />
             <Input setValue={setValue} value={value.username} type="text" id="username" placeholder="Your Nickname" label="Name:" />
             <div className="flex flex-col justify-center items-center self-center gap-5 max-w-4/5">
-                <Button text="Sign up" bg="main" disabled={isDisabled} />
+                <Button bg="main" disabled={isDisabled}>
+                    Sign up
+                </Button>
                 <Link href={"/auth/login"} className="">
                     I already have an account
                 </Link>

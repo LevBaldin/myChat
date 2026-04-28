@@ -1,6 +1,4 @@
 import { Skeleton } from "@mui/material"
-import { ol, ul } from "framer-motion/client"
-
 function SelectionPanelSkeleton() {
     return (
         <>

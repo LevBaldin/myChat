@@ -49,10 +49,12 @@ function LoginForm() {
     }
     return (
         <form onSubmit={handleSubmit} action="" className="flex flex-col gap-3 bg-secondary p-2 rounded-2xl max-w-5/6">
-            <Input setValue={setValue} value={value.email} type="text" id="email" placeholder="Your Email" label="Email:" />
-            <Input setValue={setValue} value={value.password} type="password" id="password" placeholder="*****" label="Password:" />
+            <Input<LogInData> setValue={setValue} value={value.email} type="email" id="email" placeholder="Your Email" label="Email:" />
+            <Input<LogInData> setValue={setValue} value={value.password} type="password" id="password" placeholder="*****" label="Password:" />
             <div className="flex flex-col justify-center items-center self-center gap-5 max-w-4/5">
-                <Button text="Log In" bg="main" disabled={isDisabled} />
+                <Button bg="main" disabled={isDisabled}>
+                    Log in
+                </Button>
                 <Link href={"/auth/signup"} prefetch className="">
                     I don&apos;t have an account
                 </Link>
