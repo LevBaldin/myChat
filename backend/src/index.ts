@@ -30,6 +30,9 @@ const io: Server = new Server(server, {
 })
 io.on("connection", (socket) => {
     console.log(`Client connected: ${socket.id}`)
+    socket.on("abs", (data) => {
+        console.log("abracadabra " + data)
+    })
 })
 
 server.listen(5000, "localhost", () => {
