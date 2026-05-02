@@ -1,7 +1,7 @@
 "use client"
 import axiosInstance from "@/app/lib/axiosInterseptor"
 import Users, { UsersPanel } from "./ui/Users"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { setCredentials } from "@/store/authSlice"
 import { useEffect, useState } from "react"
 import Input from "./ui/Input"
@@ -11,17 +11,35 @@ import Image from "next/image"
 import Button from "./ui/Button"
 import toast from "react-hot-toast"
 import { AxiosError } from "axios"
+import { RootState } from "@/store/store"
+import { User } from "../../../shared/types/auth"
+import Chats from "./ui/Chats"
 export interface UserSearch {
     userSearch: string
 }
+export interface Message {
+    id: string
+    content: string
+    chatId: string
+    senderId: string
+    createdAt: Date
+}
+export interface Chat {
+    id: string
+    participants: User[]
+    messages: Message[]
+}
 function SelectionPanel() {
     const dispatch = useDispatch()
-    const [data, setData] = useState<UsersPanel[]>([])
+    const user = useSelector((state: RootState) => state.auth.user)
+    const [data, setData] = useState<Chat[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [value, setValue] = useState<UserSearch>({ userSearch: "" })
     const [searchNew, setSearchNew] = useState<boolean>(false)
     const [newData, setNewData] = useState<UsersPanel[]>([])
-    const filteredData: UsersPanel[] = searchNew ? [] : data.filter((el) => el.name.toLowerCase().includes(value.userSearch.toLowerCase()))
+    const filteredData: Chat[] = searchNew
+        ? []
+        : data.filter((el) => el.participants.some((el) => el.name.toLocaleLowerCase().includes(value.userSearch.toLocaleLowerCase())))
     useEffect(() => {
         if (!searchNew) {
             return
@@ -39,12 +57,17 @@ function SelectionPanel() {
                             name: value.userSearch
                         }
                     })
-                    setNewData(res.data)
-                    console.log(newData)
+                    const filtered = res.data.filter((el: UsersPanel) => el.name !== user?.name)
+                    if (filtered.length === 0) {
+                        throw new Error("No users found")
+                    }
+                    setNewData(filtered)
                 } catch (error: unknown) {
                     if (error instanceof AxiosError) {
                         setNewData([])
                         toast.error(error?.response?.data.message)
+                    } else if (error instanceof Error) {
+                        toast.error(error.message)
                     }
                 }
             }, 300)
@@ -64,11 +87,19 @@ function SelectionPanel() {
             }
         }
         getData()
-        fetch("fakeApi/getChats/")
-            .then((res) => res.json())
-            .then(setData)
-            .finally(() => setIsLoading(false))
     }, [dispatch])
+    useEffect(() => {
+        async function getChats() {
+            const res = await axiosInstance.get("/chats", {
+                params: {
+                    id: user?.id
+                }
+            })
+            setData(res.data.chats)
+            setIsLoading(false)
+        }
+        getChats()
+    }, [])
     function handleToggleSearchMode() {
         setSearchNew((prev) => !prev)
         setValue({ userSearch: "" })
@@ -94,7 +125,7 @@ function SelectionPanel() {
                 ) : searchNew && newData.length > 0 ? (
                     <Users data={newData} />
                 ) : filteredData.length > 0 ? (
-                    <Users data={filteredData} />
+                    <Chats data={filteredData} />
                 ) : (
                     <div className="flex flex-col justify-center items-center gap-3 h-1/3">
                         {!!value.userSearch.length && <Image src={Empty} className="size-10" width={20} height={20} alt="No users image" />}
