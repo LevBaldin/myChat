@@ -1,8 +1,8 @@
 @import "tailwindcss";
 /* @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"); */
 :root {
-    --background: #ffffff;
-    --foreground: #171717;
+    --background: #00101f;
+    --foreground: #deeefe;
 }
 @theme colors {
     --color-primary: #00101f;
@@ -23,14 +23,13 @@
 @media (prefers-color-scheme: dark) {
     :root {
         --background: #00101f;
-        /* --background: #1a1a1a; */
         --foreground: #deeefe;
     }
 }
 @media (prefers-color-scheme: light) {
     :root {
-        --background: #0a0a0a;
-        --foreground: #ededed;
+        --background: #deeefe;
+        --foreground: #00101f;
     }
 }
 ::selection {
@@ -41,5 +40,17 @@ body {
     min-height: 100vh;
     background: radial-gradient(#08243e, #00101f);
     color: var(--foreground);
-    font-family: "Nunito", sans-serif;
+    /* font-family: "Nunito", sans-serif; */
+}
+html,
+body {
+    scrollbar-width: 10px;
+    scrollbar-color: #00101f transparent;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: #deeefe !important;
 }
