@@ -1,9 +1,9 @@
 import "dotenv/config"
 import bcrypt from "bcrypt"
 import { prisma } from "../../lib/prisma"
-import { LogInData } from "../../../../shared/types/auth"
+import { LogInData } from "../../../../shared/types/types"
 import { generateJWT } from "./generateJWT"
-import { User } from "../../../../shared/types/auth"
+import { User } from "../../../../shared/types/types"
 export interface authControllData {
     tokenAccess: string
     tokenRefresh: string
@@ -37,7 +37,8 @@ export async function logIn(params: LogInData): Promise<authControllData> {
         user: {
             id: user.id,
             name: user.name,
-            email: user.email
+            email: user.email,
+            avatar: user.avatar
         }
     }
 }

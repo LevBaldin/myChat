@@ -1,6 +1,6 @@
+import { Chat, Message } from "../../../shared/types/types"
 import { prisma } from "../lib/prisma"
-
-export async function getMessages(id: string) {
+export async function getMessages(id: string): Promise<Partial<Omit<Chat, "participants">>> {
     const messages = await prisma.chat.findUnique({
         where: {
             id: id
@@ -11,7 +11,8 @@ export async function getMessages(id: string) {
                     id: true,
                     content: true,
                     senderId: true,
-                    createdAt: true
+                    createdAt: true,
+                    chatId: true
                 },
                 take: 30,
                 orderBy: {
@@ -20,5 +21,5 @@ export async function getMessages(id: string) {
             }
         }
     })
-    return messages
+    return { id: messages?.id, messages: messages?.messages }
 }

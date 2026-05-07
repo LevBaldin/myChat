@@ -1,6 +1,7 @@
+import { User } from "@prisma/client"
 import { prisma } from "../lib/prisma"
 
-export async function findUsersByName(value: string) {
+export async function findUsersByName(value: string): Promise<User[]> {
     const data = await prisma.user.findMany({
         where: {
             name: {

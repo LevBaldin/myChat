@@ -2,7 +2,6 @@ import { Router } from "express"
 import { getDataByTokenRefresh } from "../controllers/auth/getDataByTokenRefresh"
 import { findUsersByNameControll } from "../controllers/findUsersControll"
 import { getChatsControll } from "../controllers/getChatsControll"
-// import { getMessages } from "../services/getMessages"
 import { getMessagesControll } from "../controllers/getMessages"
 const privRoute = Router()
 privRoute.get("/userdata", getDataByTokenRefresh)

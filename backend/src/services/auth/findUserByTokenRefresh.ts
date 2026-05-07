@@ -1,6 +1,7 @@
+import { User } from "../../../../shared/types/types"
 import { prisma } from "../../lib/prisma"
 
-export async function findUserByTokenRefresh(tokenRefresh: string) {
+export async function findUserByTokenRefresh(tokenRefresh: string): Promise<{ user: User }> {
     const user = await prisma.user.findUnique({
         where: {
             refreshToken: tokenRefresh
@@ -11,7 +12,8 @@ export async function findUserByTokenRefresh(tokenRefresh: string) {
         user: {
             id: user.id,
             name: user.name,
-            email: user.email
+            email: user.email,
+            avatar: user.avatar
         }
     }
 }
