@@ -1,12 +1,12 @@
-import { Message } from "@/components/SelectionPanel"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { IChat } from "../../../shared/types/types"
 interface ChatInitialState {
     openedChat: string | null
-    messages: Message[]
+    chat: Omit<IChat, "participants"> | null
 }
 const initialState: ChatInitialState = {
     openedChat: null,
-    messages: []
+    chat: null
 }
 export const chatSlice = createSlice({
     name: "chat",
@@ -14,8 +14,7 @@ export const chatSlice = createSlice({
     reducers: {
         setMessages: (state, action: PayloadAction<ChatInitialState>) => {
             state.openedChat = action.payload.openedChat
-            state.messages = action.payload.messages
-            // state.isOpenedChat = true
+            state.chat = action.payload.chat
         }
     }
 })
