@@ -12,32 +12,21 @@ import Button from "./ui/Button"
 import toast from "react-hot-toast"
 import { AxiosError } from "axios"
 import { RootState } from "@/store/store"
-import { User } from "../../../shared/types/auth"
+import { IChat, IUser } from "../../../shared/types/types"
 import Chats from "./ui/Chats"
 export interface UserSearch {
     userSearch: string
 }
-export interface Message {
-    id: string
-    content: string
-    chatId: string
-    senderId: string
-    createdAt: Date
-}
-export interface Chat {
-    id: string
-    participants: User[]
-    messages: Message[]
-}
+
 function SelectionPanel() {
     const dispatch = useDispatch()
     const user = useSelector((state: RootState) => state.auth.user)
-    const [data, setData] = useState<Chat[]>([])
+    const [data, setData] = useState<IChat[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [value, setValue] = useState<UserSearch>({ userSearch: "" })
     const [searchNew, setSearchNew] = useState<boolean>(false)
     const [newData, setNewData] = useState<UsersPanel[]>([])
-    const filteredData: Chat[] = searchNew
+    const filteredData: IChat[] = searchNew
         ? []
         : data.filter((el) => el.participants.some((el) => el.name.toLocaleLowerCase().includes(value.userSearch.toLocaleLowerCase())))
     useEffect(() => {
