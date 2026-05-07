@@ -2,21 +2,21 @@ export interface LogInData {
     email: string
     password: string
 }
-export interface User {
+export interface IUser {
     id: string
     email: string
     name: string
     avatar: string
 }
-export interface Message {
+export interface IMessage {
     id: string
     content: string
     chatId: string
     senderId: string
     createdAt: Date
 }
-export interface Chat {
+export interface IChat {
     id: string
-    participants: User[]
-    messages: Message[]
+    participants: IUser[]
+    messages: IMessage[]
 }

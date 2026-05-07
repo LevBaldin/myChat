@@ -1,6 +1,6 @@
-import { User } from "../../../../shared/types/auth"
+import { IUser } from "../../../../shared/types/types"
 import ChatCard from "./UserCard"
-export interface UsersPanel extends User {
+export interface UsersPanel extends IUser {
     lastMessage: string
 }
 interface UserProps {

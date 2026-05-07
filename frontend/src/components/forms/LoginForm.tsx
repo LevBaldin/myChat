@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react"
 import Button from "../ui/Button"
 import Input from "../ui/Input"
-import { LogInData } from "../../../../shared/types/auth"
+import { LogInData } from "../../../../shared/types/types"
 import Link from "next/link"
 import axios from "axios"
 import toast from "react-hot-toast"
