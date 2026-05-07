@@ -3,11 +3,11 @@ import bcrypt from "bcrypt"
 import { prisma } from "../../lib/prisma"
 import { LogInData } from "../../../../shared/types/types"
 import { generateJWT } from "./generateJWT"
-import { User } from "../../../../shared/types/types"
+import { IUser } from "../../../../shared/types/types"
 export interface authControllData {
     tokenAccess: string
     tokenRefresh: string
-    user: User
+    user: IUser
 }
 export async function logIn(params: LogInData): Promise<authControllData> {
     const user = await prisma.user.findUnique({

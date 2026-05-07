@@ -1,8 +1,8 @@
 import { User } from "@prisma/client"
 import { prisma } from "../lib/prisma"
-import { Chat } from "../../../shared/types/types"
+import { IChat } from "../../../shared/types/types"
 
-export async function getChats(id: string): Promise<Chat[]> {
+export async function getChats(id: string): Promise<IChat[]> {
     const chats = await prisma.chat.findMany({
         where: {
             participants: {
